@@ -1,3 +1,4 @@
+from domain import *
 from infrastructure import *
 
 def runAddMenu(bookList, clientList, parameters):
@@ -8,7 +9,27 @@ def runAddMenu(bookList, clientList, parameters):
     :param parameters: list of parameters (strings)
     :return: -
     """
-    pass
+    object = parameters[0].strip()
+
+    match object:
+        case "book":
+            id = input("ID: ")
+            title = input("Title: ")
+            description = input("Description: ")
+            author = input("Author: ")
+            book = createBook(id, title, description, author)
+
+            if not book in bookList:
+                addBookToBookList(book, bookList)
+
+        case "client":
+            id = input("ID: ")
+            name = input("Full name: ")
+            cnp = input("CNP: ")
+            client = createClient(id, name, cnp)
+
+            if not client in clientList:
+                addClientToClientList(client, clientList)
 
 def runRemoveMenu(bookList, clientList, parameters):
     """
@@ -19,6 +40,20 @@ def runRemoveMenu(bookList, clientList, parameters):
     :return: -
     """
     pass
+
+def runShowMenu(bookList, clientList, parameters):
+    """
+    show the book list or the client list
+    :param parameters: list of parameters (strings)
+    :return: -
+    """
+    object = parameters[0].strip()
+
+    match object:
+        case "books":
+            print(bookList)
+        case "clients":
+            print(clientList)
 
 def runHelpMenu(parameters):
     """
