@@ -1,7 +1,7 @@
 def createBook(id, title, description, author):
     """
     creates a book
-    :param id: int
+    :param id: string
     :param title: string
     :param description: string
     :param author: string
@@ -13,7 +13,7 @@ def getID(object):
     """
     gets the ID of an object(book or client)
     :param object: dictionary
-    :return: int
+    :return: string
     """
     return object["id"]
 
@@ -44,7 +44,7 @@ def getAuthor(book):
 def createClient(id, name, cnp):
     """
     creates a client
-    :param id: int
+    :param id: string
     :param name: string
     :param CNP: string
     :return: dictionary
