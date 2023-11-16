@@ -6,7 +6,7 @@ def validateAction(command):
     """
     errors = ""
 
-    validActions = ["add", "remove", "help", "exit"]
+    validActions = ["add", "remove", "show", "help", "exit"]
     if not command in validActions:
         errors += "Invalid Command!\n"
 
