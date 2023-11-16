@@ -1,6 +1,6 @@
 from test import runTest
 from validate import validateAction
-from service import runAddMenu, runRemoveMenu, runHelpMenu, runExitMenu
+from service import runAddMenu, runRemoveMenu, runShowMenu, runHelpMenu, runExitMenu
 
 def runMain():
     bookList = []
@@ -29,6 +29,8 @@ def runMain():
                     runAddMenu(bookList, clientList, parameters)
                 case "remove":
                     runRemoveMenu(bookList, clientList, parameters)
+                case "show":
+                    runShowMenu(bookList, clientList, parameters)
                 case "help":
                     runHelpMenu(parameters)
                 case "exit":
