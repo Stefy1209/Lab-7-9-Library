@@ -1,4 +1,4 @@
-# Lab-7-9-Lybrary
+# Lab-7-9-Library
 Stefan Lucian Gramada 
 
 The objective of this project is to create an app that can gestionates a list of books, a list of clients and generate some statistics. The actions are:
