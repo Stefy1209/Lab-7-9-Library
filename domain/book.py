@@ -24,6 +24,12 @@ class Book():
                 f"Author: {self.__author}\n"
                 f"Avaible: {self.__avaible}")
 
+    def __eq__(self, other):
+        if not isinstance(other, Book):
+            return NotImplemented
+
+        return self.__id == other.__id and self.__title == other.__title and self.__description == other.__description and self.__author == other.__author and self.__avaible == other.__avaible
+
     def getID(self):
         """
         gets the ID
