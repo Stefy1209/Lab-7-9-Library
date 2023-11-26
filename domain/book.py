@@ -1,10 +1,7 @@
-class Book:
-    """
-    book is an object which stores the ID, Title, Description and Author of a book
-    """
+class Book():
     def __init__(self, id, title, description, author):
         """
-        creates a book
+        creates book
         :param id: string
         :param title: string
         :param description: string
@@ -14,7 +11,7 @@ class Book:
         self.__title = title
         self.__description = description
         self.__author = author
-        self.__available = True
+        self.__avaible = True
 
     def __str__(self):
         """
@@ -25,7 +22,7 @@ class Book:
                 f"Title: {self.__title}\n"
                 f"Description: {self.__description}\n"
                 f"Author: {self.__author}\n"
-                f"Availability: {self.__available}")
+                f"Avaible: {self.__avaible}")
 
     def getID(self):
         """
@@ -36,60 +33,60 @@ class Book:
 
     def getTitle(self):
         """
-        gets title
+        gets the title
         :return: string
         """
         return self.__title
 
     def getDescription(self):
         """
-        gets description
+        gets the description
         :return: string
         """
         return self.__description
 
     def getAuthor(self):
         """
-        gets author
+        gets the author
         :return: string
         """
         return self.__author
 
-    def getAvailable(self):
+    def getAvaible(self):
         """
-        gets the availability of a book
+        gets the avaible
         :return: bool
         """
-        return self.__available
+        return self.__avaible
 
-    def setTitle(self, newTitle):
+    def setTitle(self, newtitle):
         """
-        changes the title of a book
-        :param newTitle: string
-        :return: -
+        changes the title with the new one
+        :param newtitle: string
+        :return:
         """
-        self.__title = newTitle
+        self.__title = newtitle
 
     def setDescription(self, newDescription):
         """
-        changes the description of a book
+        changes the description with the new one
         :param newDescription: string
-        :return: -
+        :return:
         """
         self.__description = newDescription
 
     def setAuthor(self, newAuthor):
         """
-        changes the author of a book
+        changes the description with the new one
         :param newAuthor: string
-        :return: -
+        :return:
         """
         self.__author = newAuthor
 
-    def setAvailable(self, newAvailable):
+    def switchAvaible(self):
         """
-        chnages the availability of a book
-        :param newAvailable: bool
-        :return: -
+        book avaible => book unavaible
+        book unavaible => book avaible
+        :return:
         """
-        self.__available = newAvailable
+        self.__avaible = self.__avaible ^ True

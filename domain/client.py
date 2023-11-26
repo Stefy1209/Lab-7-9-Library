@@ -1,13 +1,10 @@
-class Client:
-    """
-    client is an object which stores the ID, Name and CNP
-    """
+class Client():
     def __init__(self, id, name, cnp):
         """
-        creates a client
-        :param id: string
-        :param name: string
-        :param cnp: string
+        creates client
+        :param id:
+        :param name:
+        :param cnp:
         """
         self.__id = id
         self.__name = name
@@ -24,7 +21,7 @@ class Client:
 
     def getID(self):
         """
-        gets the ID
+        gets the id
         :return: string
         """
         return self.__id
@@ -38,23 +35,23 @@ class Client:
 
     def getCNP(self):
         """
-        gets the CNP
+        gets the cnp
         :return: string
         """
         return self.__cnp
 
     def setName(self, newName):
         """
-        changes the name of a client
+        changes the name with the new one
         :param newName: string
-        :return: -
+        :return:
         """
         self.__name = newName
 
     def setCNP(self, newCNP):
         """
-        chnages the CNP
+        chnages the cnp with the new one
         :param newCNP: string
-        :return: -
+        :return:
         """
         self.__cnp = newCNP
