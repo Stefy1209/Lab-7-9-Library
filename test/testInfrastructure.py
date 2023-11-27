@@ -1,6 +1,8 @@
 from domain.book import Book
-from infrastructure.serviceBook import ServiceBook
-def testGetList():
+from domain.client import Client
+from infrastructure.repositoryBook import ServiceBook
+from infrastructure.repositoryClient import ServiceClient
+def testGetListBook():
     SB = ServiceBook(Book)
     assert SB.getList() == []
 
@@ -26,7 +28,7 @@ def testAddBook():
 
     assert SB.getList() == [book]
 
-def testSearchByID():
+def testSearchBookByID():
     SB = ServiceBook(Book)
     id = "1"
     title = "a"
@@ -65,13 +67,83 @@ def testDelete():
 
     assert SB.getList() == []
 
-def testServiceBook():
-    testGetList()
+def testRepositoryBook():
+    testGetListBook()
     testCreateBook()
     testAddBook()
-    testSearchByID()
+    testSearchBookByID()
     testRemoveByID()
     testDelete()
 
+def testGetListClient():
+    SC = ServiceClient(Client)
+    assert SC.getList() == []
+
+def testCreateClient():
+    SC = ServiceClient(Client)
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = SC.createClient(id, name, cnp)
+
+    assert client == Client(id, name, cnp)
+
+def testAddClient():
+    SC = ServiceClient(Client)
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = SC.createClient(id, name, cnp)
+
+    SC.addClient(client)
+
+    assert SC.getList() == [client]
+
+def testSearchClientByID():
+    SC = ServiceClient(Client)
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = SC.createClient(id, name, cnp)
+
+    SC.addClient(client)
+
+    assert SC.searchClientByID(id) == client
+    assert SC.searchClientByID("2") == None
+
+def testRemoveClientByID():
+    SC = ServiceClient(Client)
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = SC.createClient(id, name, cnp)
+
+    SC.addClient(client)
+    SC.removeClientByID("2")
+    assert SC.getList() == [client]
+    SC.removeClientByID(id)
+    assert SC.getList() == []
+
+def testDeleteListClient():
+    SC = ServiceClient(Client)
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = SC.createClient(id, name, cnp)
+
+    SC.addClient(client)
+    SC.addClient(client)
+    SC.delete()
+    assert SC.getList() == []
+
+def testRepositoryClient():
+    testGetListClient()
+    testCreateClient()
+    testAddClient()
+    testSearchClientByID()
+    testRemoveClientByID()
+    testDeleteListClient()
+
 def runTestInfrastructure():
-    testServiceBook()
+    testRepositoryBook()
+    testRepositoryClient()
