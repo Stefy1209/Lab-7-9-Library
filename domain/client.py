@@ -19,6 +19,12 @@ class Client():
                 f"Name: {self.__name}\n"
                 f"CNP: {self.__cnp}")
 
+    def __eq__(self, other):
+        if not isinstance(other, Client):
+            return NotImplemented
+
+        return other.__id == self.__id and other.__name == self.__name and other.__cnp == self.__cnp
+
     def getID(self):
         """
         gets the id
