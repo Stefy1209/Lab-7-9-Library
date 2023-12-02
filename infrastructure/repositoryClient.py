@@ -1,10 +1,7 @@
-class ServiceClient():
+class RepositoryClient():
     def __init__(self, client):
         self.__client = client
         self.__listClient = []
-
-    def __str__(self):
-        pass
 
     def getList(self):
         """

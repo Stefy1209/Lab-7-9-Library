@@ -19,6 +19,12 @@ class Borrow():
                 f"{self.__book}\n\n"
                 f"{self.__client}")
 
+    def __eq__(self, other):
+        if not isinstance(other, Borrow):
+            return NotImplemented
+
+        return other.__id == self.__id and other.__book == self.__book and other.__client == self.__client
+
     def getID(self):
         """
         gets the id

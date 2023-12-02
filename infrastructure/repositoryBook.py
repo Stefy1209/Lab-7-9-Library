@@ -1,10 +1,7 @@
-class ServiceBook():
+class RepositoryBook():
     def __init__(self, book):
         self.__book = book
         self.__listBook = []
-
-    def __str__(self):
-        pass
 
     def getList(self):
         """
@@ -23,6 +20,18 @@ class ServiceBook():
         :return: class
         """
         return self.__book(id, title, description, author)
+
+    def changeTitle(self, book, newTitle):
+        self.__book = book
+        self.__book.setTitle(newTitle)
+
+    def changeDescription(self, book, newDescription):
+        self.__book = book
+        self.__book.setDescription(newDescription)
+
+    def changeAuthor(self, book, newAuthor):
+        self.__book = book
+        self.__book.setAuthor(newAuthor)
 
     def addBook(self, book):
         """

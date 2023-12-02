@@ -1,13 +1,15 @@
 from domain.book import Book
 from domain.client import Client
-from infrastructure.repositoryBook import ServiceBook
-from infrastructure.repositoryClient import ServiceClient
+from domain.borrow import Borrow
+from infrastructure.repositoryBook import RepositoryBook
+from infrastructure.repositoryClient import RepositoryClient
+from infrastructure.repositoryBorrow import RepositoryBorrow
 def testGetListBook():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     assert SB.getList() == []
 
 def testCreateBook():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     id = "1"
     title = "a"
     description = "b"
@@ -17,7 +19,7 @@ def testCreateBook():
     assert book == Book(id, title, description, author)
 
 def testAddBook():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     id = "1"
     title = "a"
     description = "b"
@@ -29,7 +31,7 @@ def testAddBook():
     assert SB.getList() == [book]
 
 def testSearchBookByID():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     id = "1"
     title = "a"
     description = "b"
@@ -41,7 +43,7 @@ def testSearchBookByID():
     assert SB.searchBookByID(id) == book
 
 def testRemoveByID():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     id = "1"
     title = "a"
     description = "b"
@@ -54,7 +56,7 @@ def testRemoveByID():
     assert SB.getList() == []
 
 def testDelete():
-    SB = ServiceBook(Book)
+    SB = RepositoryBook(Book)
     id = "1"
     title = "a"
     description = "b"
@@ -76,11 +78,11 @@ def testRepositoryBook():
     testDelete()
 
 def testGetListClient():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     assert SC.getList() == []
 
 def testCreateClient():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     id = "1"
     name = "2"
     cnp = "3"
@@ -89,7 +91,7 @@ def testCreateClient():
     assert client == Client(id, name, cnp)
 
 def testAddClient():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     id = "1"
     name = "2"
     cnp = "3"
@@ -100,7 +102,7 @@ def testAddClient():
     assert SC.getList() == [client]
 
 def testSearchClientByID():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     id = "1"
     name = "2"
     cnp = "3"
@@ -112,7 +114,7 @@ def testSearchClientByID():
     assert SC.searchClientByID("2") == None
 
 def testRemoveClientByID():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     id = "1"
     name = "2"
     cnp = "3"
@@ -125,7 +127,7 @@ def testRemoveClientByID():
     assert SC.getList() == []
 
 def testDeleteListClient():
-    SC = ServiceClient(Client)
+    SC = RepositoryClient(Client)
     id = "1"
     name = "2"
     cnp = "3"
@@ -144,6 +146,136 @@ def testRepositoryClient():
     testRemoveClientByID()
     testDeleteListClient()
 
+def testGetListBorrow():
+    RBr = RepositoryBorrow(Borrow)
+    assert RBr.getList() == []
+
+def testCreateBorrow():
+    RBk = RepositoryBook(Book)
+    RC = RepositoryClient(Client)
+    RBr = RepositoryBorrow(Borrow)
+
+    id = "1"
+    title = "a"
+    description = "b"
+    author = "c"
+    book = RBk.createBook(id, title, description, author)
+
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = RC.createClient(id, name, cnp)
+
+    id = "4"
+    borrow = RBr.createBorrow(id, book, client)
+    assert borrow == Borrow(id, book, client)
+
+def testAddBorrow():
+    RBk = RepositoryBook(Book)
+    RC = RepositoryClient(Client)
+    RBr = RepositoryBorrow(Borrow)
+
+    id = "1"
+    title = "a"
+    description = "b"
+    author = "c"
+    book = RBk.createBook(id, title, description, author)
+
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = RC.createClient(id, name, cnp)
+
+    id = "4"
+    borrow = RBr.createBorrow(id, book, client)
+
+    RBr.addBorrow(borrow)
+    assert RBr.getList() == [borrow]
+
+    RBr.addBorrow(borrow)
+    assert RBr.getList() == [borrow, borrow]
+
+def testSearchBorrowByID():
+    RBk = RepositoryBook(Book)
+    RC = RepositoryClient(Client)
+    RBr = RepositoryBorrow(Borrow)
+
+    id = "1"
+    title = "a"
+    description = "b"
+    author = "c"
+    book = RBk.createBook(id, title, description, author)
+
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = RC.createClient(id, name, cnp)
+
+    id = "4"
+    borrow = RBr.createBorrow(id, book, client)
+
+    RBr.addBorrow(borrow)
+    assert RBr.searchBorrowByID("1") == None
+    assert RBr.searchBorrowByID(id) == borrow
+
+def testRemoveBorrowByID():
+    RBk = RepositoryBook(Book)
+    RC = RepositoryClient(Client)
+    RBr = RepositoryBorrow(Borrow)
+
+    id = "1"
+    title = "a"
+    description = "b"
+    author = "c"
+    book = RBk.createBook(id, title, description, author)
+
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = RC.createClient(id, name, cnp)
+
+    id = "4"
+    borrow = RBr.createBorrow(id, book, client)
+
+    RBr.addBorrow(borrow)
+    assert RBr.getList() == [borrow]
+
+    RBr.removeBorrowByID(id)
+    assert RBr.getList() == []
+
+def testDeleteListBorrow():
+    RBk = RepositoryBook(Book)
+    RC = RepositoryClient(Client)
+    RBr = RepositoryBorrow(Borrow)
+
+    id = "1"
+    title = "a"
+    description = "b"
+    author = "c"
+    book = RBk.createBook(id, title, description, author)
+
+    id = "1"
+    name = "2"
+    cnp = "3"
+    client = RC.createClient(id, name, cnp)
+
+    id = "4"
+    borrow = RBr.createBorrow(id, book, client)
+
+    RBr.addBorrow(borrow)
+    RBr.addBorrow(borrow)
+    RBr.delete()
+    assert RBr.getList() == []
+
+def testRepositoryBorrow():
+    testGetListBorrow()
+    testCreateBorrow()
+    testAddBorrow()
+    testSearchBorrowByID()
+    testRemoveBorrowByID()
+    testDeleteListBorrow()
+
 def runTestInfrastructure():
     testRepositoryBook()
     testRepositoryClient()
+    testRepositoryBorrow()
