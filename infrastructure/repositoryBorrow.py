@@ -57,3 +57,9 @@ class RepositoryBorrow():
         :return: -
         """
         self.__listBorrow.clear()
+
+    def changeBook(self, borrow, newBook):
+        borrow.setBook(newBook)
+
+    def changeClient(self, borrow, newClient):
+        borrow.setClient(newClient)

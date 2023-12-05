@@ -28,6 +28,12 @@ class RepositoryClient():
         """
         self.__listClient.append(client)
 
+    def changeName(self, client, newName):
+        client.setName(newName)
+
+    def changeCNP(self, client, newCNP):
+        client.setCNP(newCNP)
+
     def searchClientByID(self, id):
         """
         search client by id

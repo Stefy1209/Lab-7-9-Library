@@ -5,7 +5,7 @@ class UI:
         self.__serviceBorrow = serviceBorrow
         self.__finished = False
         self.__parameters = []
-        self.__listActions = {"add": self.UIAdd, "show": self.UIShow, "exit": self.UIExit}
+        self.__listActions = {"add": self.UIAdd, "remove": self.UIRemove, "modify": self.UIModify, "search": self.UISearch, "generate": self.UIGenerate, "show": self.UIShow, "exit": self.UIExit}
 
     def UIAdd(self):
         listObject = {"book": self.UIAddBook, "client": self.UIAddClient, "borrow": self.UIAddBorrow}
@@ -35,6 +35,137 @@ class UI:
         idClient = input("ID Client: ")
         print("")
         self.__serviceBorrow.createBorrowAndAddToList(idBorrow, idBook, idClient)
+
+    def UIRemove(self):
+        listObject = {"book": self.UIRemoveBook, "client": self.UIRemoveClient, "borrow": self.UIRemoveBorrow}
+        listObject[self.__parameters[0]]()
+
+    def UIRemoveBook(self):
+        print("")
+        idBook = input("ID Book: ")
+        print("")
+        self.__serviceBook.removeBook(idBook)
+
+    def UIRemoveClient(self):
+        print("")
+        idClient = input("ID Client: ")
+        print("")
+        self.__serviceClient.removeClient(idClient)
+
+    def UIRemoveBorrow(self):
+        print("")
+        idBorrow = input("ID Borrow: ")
+        print("")
+        self.__serviceBorrow.removeBorrow(idBorrow)
+
+    def UIModify(self):
+        listObjects = {"book": self.UIModifyBook, "client": self.UIModifyClient, "borrow": self.UIModifyBorrow}
+        listObjects[self.__parameters[0]]()
+
+    def UIModifyBook(self):
+        listAtributes = {"title": self.UIModifyBookTitle, "description": self.UIModifyBookDescription, "author": self.UIModifyBookAuthor}
+        listAtributes[self.__parameters[1]]()
+
+    def UIModifyBookTitle(self):
+        print("")
+        idBook = input("ID Book: ")
+        newTitle = input("New Title: ")
+        print("")
+        self.__serviceBook.modifyTitle(idBook, newTitle)
+
+    def UIModifyBookDescription(self):
+        print("")
+        idBook = input("ID Book: ")
+        newDescription = input("New Description: ")
+        print("")
+        self.__serviceBook.modifyDescription(idBook, newDescription)
+
+    def UIModifyBookAuthor(self):
+        print("")
+        idBook = input("ID Book: ")
+        newAuthor = input("New Author: ")
+        print("")
+        self.__serviceBook.modifyAuthor(idBook, newAuthor)
+
+    def UIModifyClient(self):
+        listAtributes = {"name": self.UIModifyClientName, "cnp": self.UIModifyClientCNP}
+        listAtributes[self.__parameters[1]]()
+
+    def UIModifyClientName(self):
+        print("")
+        idClient = input("ID Client: ")
+        newName = input("New Name: ")
+        print("")
+        self.__serviceClient.modifyName(idClient, newName)
+
+    def UIModifyClientCNP(self):
+        print("")
+        idClient = input("ID Client: ")
+        newCNP = input("New CNP: ")
+        print("")
+        self.__serviceClient.modifyCNP(idClient, newCNP)
+
+    def UIModifyBorrow(self):
+        listAtributes = {"book": self.UIModifyBorrowBook, "client": self.UIModifyBorrowClient}
+        listAtributes[self.__parameters[1]]()
+
+    def UIModifyBorrowBook(self):
+        print("")
+        idBorrow = input("ID Borrow: ")
+        newIdBook = input("New ID Book: ")
+        print("")
+        self.__serviceBorrow.modifyBook(idBorrow, newIdBook)
+
+    def UIModifyBorrowClient(self):
+        print("")
+        idBorrow = input("ID Borrow: ")
+        newIdClient = input("New ID Client: ")
+        print("")
+        self.__serviceBorrow.modifyClient(idBorrow, newIdClient)
+
+    def UISearch(self):
+        listObject = {"book": self.UISearchBook, "client": self.UISearchClient, "borrow": self.UISearchBorrow}
+        listObject[self.__parameters[0]]()
+
+    def UISearchBook(self):
+        print("")
+        idBook = input("ID Book: ")
+        print("")
+        book = self.__serviceBook.getBook(idBook)
+        print(book)
+        print("")
+
+    def UISearchClient(self):
+        print("")
+        idClient = input("ID Client: ")
+        print("")
+        client = self.__serviceClient.getClient(idClient)
+        print(client)
+        print("")
+
+    def UISearchBorrow(self):
+        print("")
+        idBorrow = input("ID Borrow: ")
+        print("")
+        borrow = self.__serviceBorrow.getBorrow(idBorrow)
+        print(borrow)
+        print("")
+
+    def UIGenerate(self):
+        listObject = {"book": self.UIGenerateBook, "client": self.UIGenerateClient, "borrow": self.UIGenerateBorrow}
+        listObject[self.__parameters[0]]()
+
+    def UIGenerateBook(self):
+        self.__serviceBook.generateAndAddBook()
+        print("")
+
+    def UIGenerateClient(self):
+        self.__serviceClient.generateAndAddClient()
+        print("")
+
+    def UIGenerateBorrow(self):
+        self.__serviceBorrow.generateAndAddBorrow()
+        print("")
 
     def UIShow(self):
         listObject = {"book": self.UIShowBook, "books": self.UIShowBook, "client": self.UIShowClient, "clients": self.UIShowClient, "borrow": self.UIShowBorrow, "borrows": self.UIShowBorrow}
@@ -74,6 +205,6 @@ class UI:
             except SyntaxError as se:
                 print(se)
             except IndexError as ie:
-                print("There is no action!")
+                print("Incomplete action!")
             except KeyError as ke:
                 print(str(ke) + " is not a valid action!")

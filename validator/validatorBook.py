@@ -18,3 +18,7 @@ class ValidatorBook():
             if id == book.getID():
                 return
         raise SyntaxError("There is no book with this ID!")
+
+    def bookIsAvaible(self, book):
+        if book.getAvaible() == False:
+            raise SyntaxError("Book is not avaible!")

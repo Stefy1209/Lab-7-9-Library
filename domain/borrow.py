@@ -15,7 +15,7 @@ class Borrow():
         the way a borrow is displayed
         :return:
         """
-        return (f"ID:{self.__id}\n"
+        return (f"ID Borrow: {self.__id}\n\n"
                 f"{self.__book}\n\n"
                 f"{self.__client}")
 

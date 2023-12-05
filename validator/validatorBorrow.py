@@ -19,3 +19,14 @@ class ValidatorBorrow():
         for borrow in list:
             if idBorrow == borrow.getID():
                 raise SyntaxError("ID borrow is not unique!")
+
+    def IDBorrowIsInList(self, idBorrow):
+        list = self.__repositoryBorrow.getList()
+        for borrow in list:
+            if idBorrow == borrow.getID():
+                return
+        raise SyntaxError("There is no borrow with this ID!")
+
+    def BookIsAvaible(self, book):
+        if book.getAvaible() == False:
+            raise SyntaxError("Book is not avaible!")

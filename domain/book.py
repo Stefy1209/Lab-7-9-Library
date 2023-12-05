@@ -28,7 +28,7 @@ class Book():
         if not isinstance(other, Book):
             return NotImplemented
 
-        return self.__id == other.__id and self.__title == other.__title and self.__description == other.__description and self.__author == other.__author and self.__avaible == other.__avaible
+        return self.__id == other.__id and self.__title == other.__title and self.__description == other.__description and self.__author == other.__author
 
     def getID(self):
         """
