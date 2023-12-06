@@ -1,12 +1,12 @@
+import ast
 import random
-
-
 class ServiceBorrow():
-    def __init__(self, repositoryBook, repositoryClient, repositoryBorrow, validatorBorrow):
+    def __init__(self, repositoryBook, repositoryClient, repositoryBorrow, validatorBorrow, DTO):
         self.__repositoryBook = repositoryBook
         self.__repositoryClient = repositoryClient
         self.__repositoryBorrow = repositoryBorrow
         self.__validatorBorrow = validatorBorrow
+        self.__DTO = DTO
 
     def createBorrowAndAddToList(self, idBorrow, idBook, idClient):
         """
@@ -28,6 +28,8 @@ class ServiceBorrow():
         borrow = self.__repositoryBorrow.createBorrow(idBorrow, book, client)
         self.__repositoryBorrow.addBorrow(borrow)
         book.switchAvaible()
+        self.__DTO.updateNrBorrowedBooks(book)
+        self.__DTO.updateNrBorrowingClients(client)
 
     def removeBorrow(self, idBorrow):
         self.__validatorBorrow.exist(idBorrow)
@@ -70,7 +72,7 @@ class ServiceBorrow():
         return self.__repositoryBorrow.searchBorrowByID(id)
 
     def generateAndAddBorrow(self):
-        idBorrow = random.randint(1, 1000000000)
+        idBorrow = str(random.randint(1, 1000000000))
         listBook = self.__repositoryBook.getList()
         book = random.choice(listBook)
         listClient = self.__repositoryClient.getList()
@@ -79,3 +81,41 @@ class ServiceBorrow():
         book.switchAvaible()
         borrow = self.__repositoryBorrow.createBorrow(idBorrow, book, client)
         self.__repositoryBorrow.addBorrow(borrow)
+        self.__DTO.updateNrBorrowedBooks(book)
+        self.__DTO.updateNrBorrowingClients(client)
+
+    def filterByName(self):
+        listBorrow = self.__repositoryBorrow.getList()
+        listClient = []
+        for borrow in listBorrow:
+            if not borrow.getClient() in listClient:
+                listClient.append(borrow.getClient())
+        def name(client):
+            return client.getName()
+        listClient.sort(key = name)
+        return listClient
+
+    def filterByNrBook(self):
+        listBorrow = self.__repositoryBorrow.getList()
+        listClient = []
+        listNr = []
+        for borrow in listBorrow:
+            client = borrow.getClient()
+            if not client in listClient:
+                listClient.append(client)
+                listNr.append(1)
+            else:
+                index = listClient.index(client)
+                listNr[index] += 1
+        for number in listNr:
+            index = listNr.index(number)
+            pmax = index
+            max = number
+            for number in listNr[pmax+1:]:
+                if number > max:
+                    pmax = listNr.index(number)
+                    max = number
+            listNr[index], listNr[pmax] = listNr[pmax], listNr[index]
+            listClient[index], listClient[pmax] = listClient[pmax], listClient[index]
+
+        return listClient

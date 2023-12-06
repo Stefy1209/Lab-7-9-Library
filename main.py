@@ -11,6 +11,7 @@ from infrastructure.repositoryBorrow import RepositoryBorrow
 from business.serviceBook import ServiceBook
 from business.serviceClient import ServiceClient
 from business.serviceBorrow import ServiceBorrow
+from business.DTO import DTO
 from UI.mainUI import UI
 
 runTest()
@@ -23,9 +24,11 @@ VBk = ValidatorBook(RBk)
 VC = ValidatorClient(RC)
 VBr = ValidatorBorrow(RBr, VBk, VC)
 
-SBk = ServiceBook(RBk, VBk)
-SC = ServiceClient(RC, VC)
-SBr = ServiceBorrow(RBk, RC, RBr, VBr)
+DTO = DTO()
 
-UI = UI(SBk, SC, SBr)
+SBk = ServiceBook(RBk, VBk, DTO)
+SC = ServiceClient(RC, VC, DTO)
+SBr = ServiceBorrow(RBk, RC, RBr, VBr, DTO)
+
+UI = UI(SBk, SC, SBr, DTO)
 UI.runUI()

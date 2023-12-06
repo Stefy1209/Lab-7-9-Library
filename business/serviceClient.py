@@ -1,8 +1,9 @@
 import random
 class ServiceClient():
-    def __init__(self, repositoryClient, validatorClient):
+    def __init__(self, repositoryClient, validatorClient, DTO):
         self.__repositoryClient = repositoryClient
         self.__validatorClient = validatorClient
+        self.__DTO = DTO
 
     def createClientAndAddToList(self, id, name, cnp):
         """
@@ -19,6 +20,7 @@ class ServiceClient():
         self.__validatorClient.CNPIsUnique(cnp)
         client = self.__repositoryClient.createClient(id, name, cnp)
         self.__repositoryClient.addClient(client)
+        self.__DTO.addClient(client)
 
     def removeClient(self, idClient):
         """
@@ -132,7 +134,8 @@ class ServiceClient():
     "Gerald",
     "Carl"]
         name = random.choice(nameList)
-        id = random.randint(1, 1000000000)
+        id = str(random.randint(1, 1000000000))
         cnp = random.randint(1, 1000000000)
         client = self.__repositoryClient.createClient(id, name, cnp)
         self.__repositoryClient.addClient(client)
+        self.__DTO.addClient(client)

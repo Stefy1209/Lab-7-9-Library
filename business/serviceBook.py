@@ -1,8 +1,9 @@
 import random
 class ServiceBook():
-    def __init__(self, repositoryBook, validatorBook):
+    def __init__(self, repositoryBook, validatorBook, DTO):
         self.__repositoryBook = repositoryBook
         self.__validatorBook = validatorBook
+        self.__DTO = DTO
 
     def createBookAndAddToList(self, id, title, description, author):
         """
@@ -17,6 +18,7 @@ class ServiceBook():
         self.__validatorBook.IDIsUnique(id)
         book = self.__repositoryBook.createBook(id, title, description, author)
         self.__repositoryBook.addBook(book)
+        self.__DTO.addBook(book)
 
     def removeBook(self, idBook):
         self.__validatorBook.isID(idBook)
@@ -157,9 +159,10 @@ class ServiceBook():
     "Herman Melville",
     "Gabriel Garcia Marquez",
     "George Orwell"]
-        id = random.randint(1, 1000000000)
+        id = str(random.randint(1, 1000000000))
         title = random.choice(titleList)
         description = random.choice(descriptionList)
         author = random.choice(authorList)
         book = self.__repositoryBook.createBook(id, title, description, author)
         self.__repositoryBook.addBook(book)
+        self.__DTO.addBook(book)

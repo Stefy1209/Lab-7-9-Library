@@ -1,11 +1,12 @@
 class UI:
-    def __init__(self, serviceBook, serviceClient, serviceBorrow):
+    def __init__(self, serviceBook, serviceClient, serviceBorrow, DTO):
         self.__serviceBook = serviceBook
         self.__serviceClient = serviceClient
         self.__serviceBorrow = serviceBorrow
+        self.__DTO = DTO
         self.__finished = False
         self.__parameters = []
-        self.__listActions = {"add": self.UIAdd, "remove": self.UIRemove, "modify": self.UIModify, "search": self.UISearch, "generate": self.UIGenerate, "show": self.UIShow, "exit": self.UIExit}
+        self.__listActions = {"add": self.UIAdd, "remove": self.UIRemove, "modify": self.UIModify, "search": self.UISearch, "generate": self.UIGenerate, "filter": self.UIFilter, "top": self.UITop,"show": self.UIShow, "exit": self.UIExit}
 
     def UIAdd(self):
         listObject = {"book": self.UIAddBook, "client": self.UIAddClient, "borrow": self.UIAddBorrow}
@@ -153,19 +154,47 @@ class UI:
 
     def UIGenerate(self):
         listObject = {"book": self.UIGenerateBook, "client": self.UIGenerateClient, "borrow": self.UIGenerateBorrow}
-        listObject[self.__parameters[0]]()
+        listObject[self.__parameters[1]]()
 
     def UIGenerateBook(self):
-        self.__serviceBook.generateAndAddBook()
+        n = int(self.__parameters[0])
+        for i in range(n):
+            self.__serviceBook.generateAndAddBook()
         print("")
 
     def UIGenerateClient(self):
-        self.__serviceClient.generateAndAddClient()
+        n = int(self.__parameters[0])
+        for i in range(n):
+            self.__serviceClient.generateAndAddClient()
         print("")
 
     def UIGenerateBorrow(self):
-        self.__serviceBorrow.generateAndAddBorrow()
+        n = int(self.__parameters[0])
+        for i in range(n):
+            self.__serviceBorrow.generateAndAddBorrow()
         print("")
+
+    def UIFilter(self):
+        listObject = {"name": self.UIFilterByName, "books": self.UIFilterByNrBook}
+        listObject[self.__parameters[1]]()
+
+    def UIFilterByName(self):
+        list = self.__serviceBorrow.filterByName()
+        for client in list:
+            print("*" * 20)
+            print("")
+            print(client)
+            print("")
+        print("*" * 20)
+
+    def UIFilterByNrBook(self):
+        list = self.__serviceBorrow.filterByNrBook()
+        for client in list:
+            print("*" * 20)
+            print("")
+            print(client)
+            print("")
+        print("*" * 20)
 
     def UIShow(self):
         listObject = {"book": self.UIShowBook, "books": self.UIShowBook, "client": self.UIShowClient, "clients": self.UIShowClient, "borrow": self.UIShowBorrow, "borrows": self.UIShowBorrow}
@@ -174,23 +203,52 @@ class UI:
     def UIShowBook(self):
         list = self.__serviceBook.getListBook()
         for book in list:
+            print("*" * 20)
             print("")
             print(book)
-        print("")
+            print("")
+        print("*" * 20)
 
     def UIShowClient(self):
         list = self.__serviceClient.getListClient()
         for client in list:
+            print("*" * 20)
             print("")
             print(client)
-        print("")
+            print("")
+        print("*" * 20)
 
     def UIShowBorrow(self):
         list = self.__serviceBorrow.getListBorrow()
         for borrow in list:
+            print("*" * 20)
             print("")
             print(borrow)
-        print("")
+            print("")
+        print("*" * 20)
+
+    def UITop(self):
+        listObjects = {"books": self.UITopBooks, "clients": self.UITopClients}
+        listObjects[self.__parameters[0]]()
+
+    def UITopBooks(self):
+        list = self.__DTO.getListBooksSorted()
+        for book in list:
+            print("*" * 20)
+            print("")
+            print(book)
+            print("")
+        print("*" * 20)
+
+    def UITopClients(self):
+        list = self.__DTO.getListClientsSorted()
+        n = int(len(list) / 5)
+        for i in range(n):
+            print("*" * 20)
+            print("")
+            print(list[i])
+            print("")
+        print("*" * 20)
 
     def UIExit(self):
         self.__finished = True
