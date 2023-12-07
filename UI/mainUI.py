@@ -37,6 +37,16 @@ class UI:
         print("")
         self.__serviceBorrow.createBorrowAndAddToList(idBorrow, idBook, idClient)
 
+    def UIUpload(self):
+        self.__serviceBook.uploadFileBook()
+        self.__serviceClient.uploadFileClient()
+        self.__serviceBorrow.uploadFileBorrow()
+
+    def UISave(self):
+        self.__serviceBook.updateFileBook()
+        self.__serviceClient.updateFileClient()
+        self.__serviceBorrow.updateFileBorrow()
+
     def UIRemove(self):
         listObject = {"book": self.UIRemoveBook, "client": self.UIRemoveClient, "borrow": self.UIRemoveBorrow}
         listObject[self.__parameters[0]]()
@@ -251,9 +261,11 @@ class UI:
         print("*" * 20)
 
     def UIExit(self):
+        self.UISave()
         self.__finished = True
 
     def runUI(self):
+        self.UIUpload()
         while not self.__finished:
             command = input(">>> ").strip().lower().split()
             try:

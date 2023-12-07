@@ -1,10 +1,11 @@
 import ast
 import random
 class ServiceBorrow():
-    def __init__(self, repositoryBook, repositoryClient, repositoryBorrow, validatorBorrow, DTO):
+    def __init__(self, repositoryBook, repositoryClient, repositoryBorrow, repositoryFile, validatorBorrow, DTO):
         self.__repositoryBook = repositoryBook
         self.__repositoryClient = repositoryClient
         self.__repositoryBorrow = repositoryBorrow
+        self.__repositoryFile = repositoryFile
         self.__validatorBorrow = validatorBorrow
         self.__DTO = DTO
 
@@ -30,6 +31,27 @@ class ServiceBorrow():
         book.switchAvaible()
         self.__DTO.updateNrBorrowedBooks(book)
         self.__DTO.updateNrBorrowingClients(client)
+
+    def uploadFileBorrow(self):
+        text = self.__repositoryFile.read().split("@")
+        n = int(text[0])
+        for i in range(n):
+            idBorrow = text[3*i+1]
+            idBook = text[3*i+2]
+            idClient = text[3*i+3]
+            self.createBorrowAndAddToList(idBorrow, idBook, idClient)
+
+    def updateFileBorrow(self):
+        list = self.__repositoryBorrow.getList()
+        n = len(list)
+        text = ""
+        text = text + str(n)
+        for borrow in list:
+            idBorrow = borrow.getID()
+            idBook = borrow.getBook().getID()
+            idClient = borrow.getClient().getID()
+            text = text + "@" + idBorrow + "@" + idBook + "@" + idClient
+        self.__repositoryFile.write(text)
 
     def removeBorrow(self, idBorrow):
         self.__validatorBorrow.exist(idBorrow)

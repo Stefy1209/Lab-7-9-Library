@@ -1,7 +1,8 @@
 import random
 class ServiceClient():
-    def __init__(self, repositoryClient, validatorClient, DTO):
+    def __init__(self, repositoryClient, repositoryFile, validatorClient, DTO):
         self.__repositoryClient = repositoryClient
+        self.__repositoryFile = repositoryFile
         self.__validatorClient = validatorClient
         self.__DTO = DTO
 
@@ -21,6 +22,27 @@ class ServiceClient():
         client = self.__repositoryClient.createClient(id, name, cnp)
         self.__repositoryClient.addClient(client)
         self.__DTO.addClient(client)
+
+    def uploadFileClient(self):
+        text = self.__repositoryFile.read().split("@")
+        n = int(text[0])
+        for i in range(n):
+            id = text[3*i+1]
+            name = text[3*i+2]
+            cnp = text[3*i+3]
+            self.createClientAndAddToList(id, name, cnp)
+
+    def updateFileClient(self):
+        list = self.__repositoryClient.getList()
+        n = len(list)
+        text = ""
+        text = text + str(n)
+        for client in list:
+            id = client.getID()
+            name = client.getName()
+            cnp = client.getCNP()
+            text = text + "@" + id + "@" + name + "@" + cnp
+        self.__repositoryFile.write(text)
 
     def removeClient(self, idClient):
         """
@@ -135,7 +157,7 @@ class ServiceClient():
     "Carl"]
         name = random.choice(nameList)
         id = str(random.randint(1, 1000000000))
-        cnp = random.randint(1, 1000000000)
+        cnp = str(random.randint(1, 1000000000))
         client = self.__repositoryClient.createClient(id, name, cnp)
         self.__repositoryClient.addClient(client)
         self.__DTO.addClient(client)

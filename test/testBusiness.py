@@ -15,13 +15,13 @@ def testGetAllBook():
     dt = DTO()
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, dt)
+    SB = ServiceBook(RB, "a", VB, dt)
     assert SB.getListBook() == []
 
 def testCreateBookAndAddToList():
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, DTO())
+    SB = ServiceBook(RB, "a", VB, DTO())
 
     id = "1"
     title = "2"
@@ -34,7 +34,7 @@ def testCreateBookAndAddToList():
 def testGetBook():
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, DTO())
+    SB = ServiceBook(RB, "A", VB, DTO())
 
     id = "1"
     title = "2"
@@ -47,7 +47,7 @@ def testGetBook():
 def testModifyTitle():
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, DTO())
+    SB = ServiceBook(RB, "a", VB, DTO())
 
     id = "1"
     title = "2"
@@ -62,7 +62,7 @@ def testModifyTitle():
 def testModifyDecription():
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, DTO())
+    SB = ServiceBook(RB, "a", VB, DTO())
 
     id = "1"
     title = "2"
@@ -77,7 +77,7 @@ def testModifyDecription():
 def testModifyAuthor():
     RB = RepositoryBook(Book)
     VB = ValidatorBook(RB)
-    SB = ServiceBook(RB, VB, DTO())
+    SB = ServiceBook(RB, "a", VB, DTO())
 
     id = "1"
     title = "2"
@@ -100,13 +100,13 @@ def testServiceBook():
 def testGetListClient():
     RC = RepositoryClient(Client)
     VC = ValidatorClient(RC)
-    SC = ServiceClient(RC, VC, DTO())
+    SC = ServiceClient(RC, "a", VC, DTO())
     assert SC.getListClient() == []
 
 def testCreateClientAndAddToList():
     RC = RepositoryClient(Client)
     VC = ValidatorClient(RC)
-    SC = ServiceClient(RC, VC, DTO())
+    SC = ServiceClient(RC, "a", VC, DTO())
 
     id = "1"
     name = "2"
@@ -128,7 +128,7 @@ def testGetListBorrow():
     VC = ValidatorClient(RC)
     VBr = ValidatorBorrow(RBr, VBk, VC)
 
-    SBr = ServiceBorrow(RBk, RC, RBk, VBr, DTO())
+    SBr = ServiceBorrow(RBk, RC, RBk, "a", VBr, DTO())
     assert SBr.getListBorrow() == []
 
 def testCreateBorrowAndAddToList():
@@ -142,9 +142,9 @@ def testCreateBorrowAndAddToList():
 
     dto = DTO()
 
-    SBk = ServiceBook(RBk, VBk, dto)
-    SC = ServiceClient(RC, VC, dto)
-    SBr = ServiceBorrow(RBk, RC, RBr, VBr, dto)
+    SBk = ServiceBook(RBk, "a", VBk, dto)
+    SC = ServiceClient(RC, "a", VC, dto)
+    SBr = ServiceBorrow(RBk, RC, RBr, "a", VBr, dto)
 
     idBook = "1"
     title = "2"

@@ -1,7 +1,8 @@
 import random
 class ServiceBook():
-    def __init__(self, repositoryBook, validatorBook, DTO):
+    def __init__(self, repositoryBook, repositoryFile, validatorBook, DTO):
         self.__repositoryBook = repositoryBook
+        self.__repositoryFile = repositoryFile
         self.__validatorBook = validatorBook
         self.__DTO = DTO
 
@@ -19,6 +20,29 @@ class ServiceBook():
         book = self.__repositoryBook.createBook(id, title, description, author)
         self.__repositoryBook.addBook(book)
         self.__DTO.addBook(book)
+
+    def uploadFileBook(self):
+        text = self.__repositoryFile.read().split("@")
+        n = int(text[0])
+        for i in range(n):
+            id = text[4*i+1]
+            title = text[4*i+2]
+            description = text[4*i+3]
+            auhtor = text[4*i+4]
+            self.createBookAndAddToList(id, title, description, auhtor)
+
+    def updateFileBook(self):
+        list = self.__repositoryBook.getList()
+        n = len(list)
+        text = ""
+        text = text + str(n)
+        for book in list:
+            id = book.getID()
+            title = book.getTitle()
+            description = book.getDescription()
+            author = book.getAuthor()
+            text = text + "@" + id + "@" + title + "@" + description + "@" + author
+        self.__repositoryFile.write(text)
 
     def removeBook(self, idBook):
         self.__validatorBook.isID(idBook)
