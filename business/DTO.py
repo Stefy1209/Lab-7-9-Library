@@ -72,6 +72,7 @@ class DTO:
         """
         listBooks = self.__listClients
         listNr = self.__listNrBorrowingClients
+        n = len(listNr)
         for i in range(n):
             max = listNr[i]
             pmax = i

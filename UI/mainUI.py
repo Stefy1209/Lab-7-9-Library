@@ -252,7 +252,7 @@ class UI:
 
     def UITopClients(self):
         list = self.__DTO.getListClientsSorted()
-        n = int(len(list) / 5)
+        n = int(len(list) / 5 + 1)
         for i in range(n):
             print("*" * 20)
             print("")
