@@ -40,4 +40,22 @@ The app is a command-line program it has to run in a terminal. Every action has 
 | "exit" | - | Close the program |
 
 ### Iteration 2
+The next actions are executed after "show clients" from Iteration 1.
+| User | Program | Description |
+| :- | :- | :- |
+| "remove book" | - | Tells program to remove a book |
+| - | "ID Book: " | Program waits for ID |
+| "1" | - | Program removes book |
+| "modify client name" | - | Tells program to modify the name of a client |
+| - | "ID Client: New Name:" | Program waits for id client and the new name |
+| "1 James" | - | Changes the name of client 1 with "James" |
+| "generate 1 book" | - | Generates 1 random book |
+| "search client" | - | Tells program to search client |
+| - | "ID Client:" | Program waits for id |
+| "1" | - | - |
+| - | "ID: 1, Name: James, CNP: ..." | Shows client with id 1 |
 ### Iteration 3
+| User | Program | Description |
+| :- | :- | :- |
+| "filter by name/books" | - | Tells program to show the clients who borrowed at least a book sorted descendent by name/number of books |
+| "top books/clients" | - | Tells program to show the books/clients statistics |
