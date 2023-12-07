@@ -33,6 +33,10 @@ class ServiceBorrow():
         self.__DTO.updateNrBorrowingClients(client)
 
     def uploadFileBorrow(self):
+        """
+        updates the information from file to program
+        :return: -
+        """
         text = self.__repositoryFile.read().split("@")
         n = int(text[0])
         for i in range(n):
@@ -42,6 +46,10 @@ class ServiceBorrow():
             self.createBorrowAndAddToList(idBorrow, idBook, idClient)
 
     def updateFileBorrow(self):
+        """
+        saves the information about borrows in file
+        :return: -
+        """
         list = self.__repositoryBorrow.getList()
         n = len(list)
         text = ""
@@ -54,6 +62,11 @@ class ServiceBorrow():
         self.__repositoryFile.write(text)
 
     def removeBorrow(self, idBorrow):
+        """
+        removes borrow by id
+        :param idBorrow: string
+        :return: -
+        """
         self.__validatorBorrow.exist(idBorrow)
         self.__validatorBorrow.IDBorrowIsInList(idBorrow)
         borrow = self.__repositoryBorrow.searchBorrowByID(idBorrow)
@@ -69,6 +82,12 @@ class ServiceBorrow():
         return self.__repositoryBorrow.getList()
 
     def modifyBook(self, idBorrow, newIdBook):
+        """
+        modifies the book of a borrow
+        :param idBorrow: string
+        :param newIdBook: string
+        :return: -
+        """
         self.__validatorBorrow.exist(idBorrow)
         self.__validatorBorrow.IDBorrowIsInList(idBorrow)
         self.__validatorBorrow.IsIDBook(newIdBook)
@@ -80,6 +99,12 @@ class ServiceBorrow():
         oldBook.switchAvaible()
 
     def modifyClient(self, idBorrow, newIdClient):
+        """
+        modifies the client of the borrow
+        :param idBorrow: string
+        :param newIdClient: string
+        :return: -
+        """
         self.__validatorBorrow.exist(idBorrow)
         self.__validatorBorrow.IDBorrowIsInList(idBorrow)
         self.__validatorBorrow.IsIDClient(newIdClient)
@@ -89,11 +114,20 @@ class ServiceBorrow():
         self.__repositoryBorrow.changeClient(borrow, newClient)
 
     def getBorrow(self, id):
+        """
+        gets borrow
+        :param id: string
+        :return: class
+        """
         self.__validatorBorrow.exist(id)
         self.__validatorBorrow.IDBorrowIsInList(id)
         return self.__repositoryBorrow.searchBorrowByID(id)
 
     def generateAndAddBorrow(self):
+        """
+        generates borrow
+        :return: -
+        """
         idBorrow = str(random.randint(1, 1000000000))
         listBook = self.__repositoryBook.getList()
         book = random.choice(listBook)
@@ -107,6 +141,10 @@ class ServiceBorrow():
         self.__DTO.updateNrBorrowingClients(client)
 
     def filterByName(self):
+        """
+        gives a list of clients how took at least one book sorted by name
+        :return: list
+        """
         listBorrow = self.__repositoryBorrow.getList()
         listClient = []
         for borrow in listBorrow:
@@ -118,6 +156,10 @@ class ServiceBorrow():
         return listClient
 
     def filterByNrBook(self):
+        """
+        gives a list of clients how took at least one book sorted by the number of books
+        :return: list
+        """
         listBorrow = self.__repositoryBorrow.getList()
         listClient = []
         listNr = []

@@ -22,6 +22,10 @@ class ServiceBook():
         self.__DTO.addBook(book)
 
     def uploadFileBook(self):
+        """
+        uploads information from file in program
+        :return: -
+        """
         text = self.__repositoryFile.read().split("@")
         n = int(text[0])
         for i in range(n):
@@ -32,6 +36,10 @@ class ServiceBook():
             self.createBookAndAddToList(id, title, description, auhtor)
 
     def updateFileBook(self):
+        """
+        saves information in a file
+        :return: -
+        """
         list = self.__repositoryBook.getList()
         n = len(list)
         text = ""
@@ -45,6 +53,11 @@ class ServiceBook():
         self.__repositoryFile.write(text)
 
     def removeBook(self, idBook):
+        """
+        removes book
+        :param idBook: string
+        :return: -
+        """
         self.__validatorBook.isID(idBook)
         self.__validatorBook.IDIsInList(idBook)
         book = self.__repositoryBook.searchBookByID(idBook)
@@ -106,6 +119,10 @@ class ServiceBook():
         self.__repositoryBook.changeAuthor(book, newAuthor)
 
     def generateAndAddBook(self):
+        """
+        generates book
+        :return: -
+        """
         titleList = ["Pride and Prejudice",
     "1984",
     "Crime and Punishment",
@@ -114,7 +131,6 @@ class ServiceBook():
     "Poems of Paul Celan",
     "Berlin Alexanderplatz",
     "Njal's Saga",
-    "The Recognition of Śakuntalā",
     "The Orchard: The Bostan Of Saadi Of Shiraz",
     "The Poems of Giacomo Leopardi",
     "Swann's Way",

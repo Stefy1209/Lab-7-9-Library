@@ -22,14 +22,32 @@ class RepositoryBook():
         return self.__book(id, title, description, author)
 
     def changeTitle(self, book, newTitle):
+        """
+        changes the tile of a book
+        :param book: class
+        :param newTitle: string
+        :return: -
+        """
         self.__book = book
         self.__book.setTitle(newTitle)
 
     def changeDescription(self, book, newDescription):
+        """
+        changes the description of a book
+        :param book: class
+        :param newDescription: string
+        :return: -
+        """
         self.__book = book
         self.__book.setDescription(newDescription)
 
     def changeAuthor(self, book, newAuthor):
+        """
+        changes the auhtor of a book
+        :param book: class
+        :param newAuthor: string
+        :return: -
+        """
         self.__book = book
         self.__book.setAuthor(newAuthor)
 

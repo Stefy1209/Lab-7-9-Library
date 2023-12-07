@@ -3,10 +3,19 @@ class RepositoryFile():
         self.__fileName = nameFile
 
     def read(self):
+        """
+        reads a file
+        :return: string
+        """
         file = open(self.__fileName, "r")
         return file.read()
 
     def write(self, text):
+        """
+        writes in the file
+        :param text: string
+        :return: -
+        """
         file = open(self.__fileName, "w")
         file.write(text)
         file.close()

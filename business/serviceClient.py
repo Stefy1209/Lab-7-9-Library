@@ -24,6 +24,10 @@ class ServiceClient():
         self.__DTO.addClient(client)
 
     def uploadFileClient(self):
+        """
+        updates the information from file to program
+        :return: -
+        """
         text = self.__repositoryFile.read().split("@")
         n = int(text[0])
         for i in range(n):
@@ -33,6 +37,10 @@ class ServiceClient():
             self.createClientAndAddToList(id, name, cnp)
 
     def updateFileClient(self):
+        """
+        saves the information from program in a file
+        :return: -
+        """
         list = self.__repositoryClient.getList()
         n = len(list)
         text = ""
@@ -62,12 +70,24 @@ class ServiceClient():
         return self.__repositoryClient.getList()
 
     def modifyName(self, id, newName):
+        """
+        modifies the name of a client
+        :param id: string
+        :param newName: string
+        :return: -
+        """
         self.__validatorClient.exist(id)
         self.__validatorClient.IDIsInList(id)
         client = self.__repositoryClient.searchClientByID(id)
         self.__repositoryClient.changeName(client, newName)
 
     def modifyCNP(self, id, newCNP):
+        """
+        modifies the cnp of a client
+        :param id: string
+        :param newCNP: string
+        :return: -
+        """
         self.__validatorClient.exist(id)
         self.__validatorClient.IDIsInList(id)
         self.__validatorClient.CNPIsUnique(newCNP)
@@ -75,11 +95,20 @@ class ServiceClient():
         self.__repositoryClient.changeCNP(client, newCNP)
 
     def getClient(self, id):
+        """
+        gets a client
+        :param id: string
+        :return: class
+        """
         self.__validatorClient.exist(id)
         self.__validatorClient.IDIsInList(id)
         return self.__repositoryClient.searchClientByID(id)
 
     def generateAndAddClient(self):
+        """
+        generates a client
+        :return: -
+        """
         nameList = ["James",
     "Robert",
     "John",

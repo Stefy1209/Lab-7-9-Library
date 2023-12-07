@@ -29,9 +29,21 @@ class RepositoryClient():
         self.__listClient.append(client)
 
     def changeName(self, client, newName):
+        """
+        changes the name of a client
+        :param client: class
+        :param newName: string
+        :return: -
+        """
         client.setName(newName)
 
     def changeCNP(self, client, newCNP):
+        """
+        changes the cnp of a client
+        :param client: class
+        :param newCNP: string
+        :return: -
+        """
         client.setCNP(newCNP)
 
     def searchClientByID(self, id):

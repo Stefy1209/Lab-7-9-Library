@@ -5,13 +5,28 @@ class ValidatorBorrow():
         self.__validatorClient = validatorClient
 
     def exist(self, thing):
+        """
+        verifies if it is not empty
+        :param thing: string
+        :return:
+        """
         if thing == "":
             raise SyntaxError("Something is missing!")
 
     def IsIDBook(self, idBook):
+        """
+        verifies if id coresponds with a book
+        :param idBook:
+        :return:
+        """
         self.__validatorBook.IDIsInList(idBook)
 
     def IsIDClient(self, idClient):
+        """
+        verifies if id coresponds with a client
+        :param idClient: string
+        :return:
+        """
         self.__validatorClient.IDIsInList(idClient)
 
     def IDBorrowIsUnique(self, idBorrow):
