@@ -1,9 +1,11 @@
 class DTO:
     def __init__(self):
         self.__listBooks = []
-        self.__listNrBorrowedBooks = []
+        self.__listNrBorrowedBooks = [] # for every book we will remember how many times it was borrowed
         self.__listClients = []
-        self.__listNrBorrowingClients = []
+        self.__listNrBorrowingClients = [] # for every client we will remember how many times he/she borrowed a book
+        self.__listAuthor = []
+        self.__listNrBorrowedBooksAuthor = [] # for every author we will remember how many of their books were borrowed
 
     def addBook(self, book):
         """
@@ -84,3 +86,29 @@ class DTO:
             listBooks[i], listBooks[pmax] = listBooks[pmax], listBooks[i]
 
         return listBooks
+
+    def addAuthor(self, author):
+        if not author in self.__listAuthor:
+            self.__listAuthor.append(author)
+            self.__listNrBorrowedBooksAuthor.append(0)
+
+    def updateNrBorrowedBooksAuthor(self, author):
+        list = self.__listAuthor
+        index = list.index(author)
+        self.__listNrBorrowedBooksAuthor[index] += 1
+
+    def getTopAuthor(self):
+        max = -1
+        maxAuthor = -1 # the author with the most borrowed books
+        for number in self.__listNrBorrowedBooksAuthor:
+            if number > max:
+                max = number
+                maxAuthor = self.__listAuthor[self.__listNrBorrowedBooksAuthor.index(number)]
+
+        if maxAuthor == -1:
+            return "There is no author!"
+
+        return maxAuthor
+
+    def upload(self):
+        print("Upload DTO de implementat!")

@@ -8,7 +8,9 @@ class RepositoryFile():
         :return: string
         """
         file = open(self.__fileName, "r")
-        return file.read()
+        text = file.read()
+        file.close()
+        return text
 
     def write(self, text):
         """

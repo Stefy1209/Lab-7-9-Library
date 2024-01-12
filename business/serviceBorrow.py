@@ -31,6 +31,7 @@ class ServiceBorrow():
         book.switchAvaible()
         self.__DTO.updateNrBorrowedBooks(book)
         self.__DTO.updateNrBorrowingClients(client)
+        self.__DTO.updateNrBorrowedBooksAuthor(book.getAuthor())
 
     def uploadFileBorrow(self):
         """
@@ -139,6 +140,7 @@ class ServiceBorrow():
         self.__repositoryBorrow.addBorrow(borrow)
         self.__DTO.updateNrBorrowedBooks(book)
         self.__DTO.updateNrBorrowingClients(client)
+        self.__DTO.updateNrBorrowedBooksAuthor(book.getAuthor())
 
     def filterByName(self):
         """
@@ -183,3 +185,6 @@ class ServiceBorrow():
             listClient[index], listClient[pmax] = listClient[pmax], listClient[index]
 
         return listClient
+
+    def delete(self):
+        self.__repositoryBorrow.delete()

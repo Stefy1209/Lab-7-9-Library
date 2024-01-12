@@ -15,7 +15,15 @@ from business.serviceBorrow import ServiceBorrow
 from business.DTO import DTO
 from UI.mainUI import UI
 
-runTest()
+from sortari.sortari import selection_sort
+
+list = [(1, 4), (0, 2), (-23, 4), (0, 234), (2, 4), (-3, 2)]
+
+selection_sort(list, reversed=True, key= lambda x:(x[1], x[0]))
+
+print(list)
+
+#runTest()
 
 RBk = RepositoryBook(Book)
 RC = RepositoryClient(Client)

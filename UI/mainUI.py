@@ -6,7 +6,16 @@ class UI:
         self.__DTO = DTO
         self.__finished = False
         self.__parameters = []
-        self.__listActions = {"add": self.UIAdd, "remove": self.UIRemove, "modify": self.UIModify, "search": self.UISearch, "generate": self.UIGenerate, "filter": self.UIFilter, "top": self.UITop,"show": self.UIShow, "exit": self.UIExit}
+        self.__listActions = {"add": self.UIAdd,
+                              "remove": self.UIRemove,
+                              "modify": self.UIModify,
+                              "search": self.UISearch,
+                              "generate": self.UIGenerate,
+                              "sort": self.UISort,
+                              "top": self.UITop,
+                              "show": self.UIShow,
+                              "delete": self.UIDelete,
+                              "exit": self.UIExit}
 
     def UIAdd(self):
         listObject = {"book": self.UIAddBook, "client": self.UIAddClient, "borrow": self.UIAddBorrow}
@@ -41,6 +50,7 @@ class UI:
         self.__serviceBook.uploadFileBook()
         self.__serviceClient.uploadFileClient()
         self.__serviceBorrow.uploadFileBorrow()
+        self.__DTO.upload()
 
     def UISave(self):
         self.__serviceBook.updateFileBook()
@@ -163,7 +173,7 @@ class UI:
         print("")
 
     def UIGenerate(self):
-        listObject = {"book": self.UIGenerateBook, "client": self.UIGenerateClient, "borrow": self.UIGenerateBorrow}
+        listObject = {"book": self.UIGenerateBook,"books": self.UIGenerateBook, "client": self.UIGenerateClient, "clients": self.UIGenerateClient, "borrow": self.UIGenerateBorrow, "borrows": self.UIGenerateBorrow}
         listObject[self.__parameters[1]]()
 
     def UIGenerateBook(self):
@@ -184,11 +194,20 @@ class UI:
             self.__serviceBorrow.generateAndAddBorrow()
         print("")
 
-    def UIFilter(self):
-        listObject = {"name": self.UIFilterByName, "books": self.UIFilterByNrBook}
+    def UISort(self):
+        listObject = {"name": self.UISortByName, "nr_books": self.UISortByNrBook, "books_author": self.UISortBooksByAuthor}
         listObject[self.__parameters[1]]()
 
-    def UIFilterByName(self):
+    def UISortBooksByAuthor(self):
+        list = self.__serviceBook.getListSortedByAuthorAndTitle()
+        for book in list:
+            print("*" * 20)
+            print("")
+            print(book)
+            print("")
+        print("*" * 20)
+
+    def UISortByName(self):
         list = self.__serviceBorrow.filterByName()
         for client in list:
             print("*" * 20)
@@ -197,7 +216,7 @@ class UI:
             print("")
         print("*" * 20)
 
-    def UIFilterByNrBook(self):
+    def UISortByNrBook(self):
         list = self.__serviceBorrow.filterByNrBook()
         for client in list:
             print("*" * 20)
@@ -238,7 +257,7 @@ class UI:
         print("*" * 20)
 
     def UITop(self):
-        listObjects = {"books": self.UITopBooks, "clients": self.UITopClients}
+        listObjects = {"books": self.UITopBooks, "clients": self.UITopClients, "author": self.UITopAuthor}
         listObjects[self.__parameters[0]]()
 
     def UITopBooks(self):
@@ -259,6 +278,19 @@ class UI:
             print(list[i])
             print("")
         print("*" * 20)
+
+    def UITopAuthor(self):
+        author = self.__DTO.getTopAuthor()
+        print("*" * 20)
+        print("")
+        print(author)
+        print("")
+        print("*" * 20)
+
+    def UIDelete(self):
+        self.__serviceBook.delete()
+        self.__serviceClient.delete()
+        self.__serviceBorrow.delete()
 
     def UIExit(self):
         self.UISave()

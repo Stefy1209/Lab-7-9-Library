@@ -104,6 +104,9 @@ class ServiceClient():
         self.__validatorClient.IDIsInList(id)
         return self.__repositoryClient.searchClientByID(id)
 
+    def delete(self):
+        self.__repositoryClient.delete()
+
     def generateAndAddClient(self):
         """
         generates a client

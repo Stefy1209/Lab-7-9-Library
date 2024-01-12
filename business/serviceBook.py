@@ -1,4 +1,5 @@
 import random
+from sortari.sortari import shake_sort
 class ServiceBook():
     def __init__(self, repositoryBook, repositoryFile, validatorBook, DTO):
         self.__repositoryBook = repositoryBook
@@ -20,6 +21,7 @@ class ServiceBook():
         book = self.__repositoryBook.createBook(id, title, description, author)
         self.__repositoryBook.addBook(book)
         self.__DTO.addBook(book)
+        self.__DTO.addAuthor(author)
 
     def uploadFileBook(self):
         """
@@ -118,6 +120,9 @@ class ServiceBook():
         book = self.__repositoryBook.searchBookByID(id)
         self.__repositoryBook.changeAuthor(book, newAuthor)
 
+    def delete(self):
+        self.__repositoryBook.delete()
+
     def generateAndAddBook(self):
         """
         generates book
@@ -206,3 +211,9 @@ class ServiceBook():
         book = self.__repositoryBook.createBook(id, title, description, author)
         self.__repositoryBook.addBook(book)
         self.__DTO.addBook(book)
+        self.__DTO.addAuthor(author)
+
+    def getListSortedByAuthorAndTitle(self):
+        list = self.__repositoryBook.getList().copy()
+        shake_sort(list, reversed=False, key = lambda book:(book.getAuthor(), book.getTitle()))
+        return list

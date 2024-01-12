@@ -1,3 +1,4 @@
+from operator import index
 class RepositoryBook():
     def __init__(self, book):
         self.__book = book
@@ -59,25 +60,48 @@ class RepositoryBook():
         """
         self.__listBook.append(book)
 
-    def searchBookByID(self, id):
+    def searchBookByID(self, id, index = 0):
         """
         search book by id
         :param id: string
         :return: class
         """
-        for book in self.__listBook:
-            if book.getID() == id:
-                return book
+        #for book in self.__listBook:
+            #if book.getID() == id:
+                #return book
+        if index == len(self.__listBook):
+            return None
 
-    def removeBookByID(self, id):
+        if self.__listBook[index].getID() == id:
+            return self.__listBook[index]
+
+        return self.searchBookByID(id, index+1)
+
+
+    def removeBookByID(self, id, index = 0):
         """
         removes book by id
         :param id: string
         :return: -
         """
-        for book in self.__listBook:
-            if book.getID() == id:
-                self.__listBook.remove(book)
+        #for book in self.__listBook:
+            #if book.getID() == id:
+                #self.__listBook.remove(book)
+        """
+        Calcul Complexitate:
+            1) Caz favorabil: elementul care trebuie eliminat este primul    => 2 comparatii        => teta(1)
+            2) Caz nefavorabil: elementul care trebuie eliminat este ultimul => 2n + 1 comparatii   => teta(n)
+            
+            1), 2) => complexitate timp este O(n)
+        """
+        if index == len(self.__listBook):
+            return None
+
+        if self.__listBook[index].getID() == id:
+            self.__listBook.remove(self.__listBook[index])
+            return
+
+        return self.removeBookByID(id, index+1)
 
     def delete(self):
         """
